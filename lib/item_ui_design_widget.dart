@@ -1,3 +1,4 @@
+import 'package:ar_visionary_explora/item_details_screen.dart';
 import 'package:ar_visionary_explora/items.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,10 @@ class _ItemUIDesignWidgetState extends State<ItemUIDesignWidget> {
     return InkWell(
       onTap: () {
         // send user to the item detail screen
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => ItemDetailsScreen(
+              clickedItemInfo: widget.itemsInfo,
+            )));
       },
       splashColor: Colors.purple,
       child: Padding(
