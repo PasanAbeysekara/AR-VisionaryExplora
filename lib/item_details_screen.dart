@@ -28,14 +28,16 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.pinkAccent,
         onPressed: () {
-          // try item virtually (arview)
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (c) => VirtualARViewScreen(
-          //       clickedItemImageLink:widget.clickedItemInfo!.itemImage.toString(),
-          //     ),
-          //   ),
+          //try item virtually (arview)
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (c) => VirtualARViewScreen(
+                clickedItemImageLink:
+                    widget.clickedItemInfo!.itemImage.toString(),
+              ),
+            ),
+          );
           // );
         },
         label: const Text(
