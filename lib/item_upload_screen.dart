@@ -406,7 +406,6 @@ class _ItemUploadScreenState extends State<ItemUploadScreen> {
       if (pickedImage != null) {
         String imagePath = pickedImage.path;
         imageFileUint8List = await pickedImage.readAsBytes();
-
         // remove background from image
         // make image transparent
         imageFileUint8List =
