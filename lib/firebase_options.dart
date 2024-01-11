@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '408294414641',
     projectId: 'ar-visionary-explora-2ca98',
     storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
+    androidClientId: '408294414641-b0dkmt08ops82uh84upon7gabp91cv68.apps.googleusercontent.com',
+    iosClientId: '408294414641-thaqa4ijijipqjfsa95ge2c0e6e32suk.apps.googleusercontent.com',
     iosBundleId: 'com.example.arVisionaryExplora',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '408294414641',
     projectId: 'ar-visionary-explora-2ca98',
     storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
+    androidClientId: '408294414641-b0dkmt08ops82uh84upon7gabp91cv68.apps.googleusercontent.com',
+    iosClientId: '408294414641-j9fdhpd1s7cnu5n8n60dgtbo93somrlj.apps.googleusercontent.com',
     iosBundleId: 'com.example.arVisionaryExplora.RunnerTests',
   );
 }
