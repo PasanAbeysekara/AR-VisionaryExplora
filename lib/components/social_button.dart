@@ -1,4 +1,4 @@
-import 'package:ar_visionary_explora/constants/app_colors.dart';
+import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
