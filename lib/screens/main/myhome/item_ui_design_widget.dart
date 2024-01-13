@@ -1,5 +1,5 @@
-import 'package:ar_visionary_explora/item_details_screen.dart';
-import 'package:ar_visionary_explora/items.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/item_details_screen.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:flutter/material.dart';
 
 class ItemUIDesignWidget extends StatefulWidget {

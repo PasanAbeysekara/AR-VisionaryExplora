@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:ar_visionary_explora/global.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/global.dart';
 import 'package:http/http.dart' as http;
 
 class ApiConsumer {
