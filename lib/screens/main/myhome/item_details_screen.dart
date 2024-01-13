@@ -1,5 +1,5 @@
-import 'package:ar_visionary_explora/items.dart';
-import 'package:ar_visionary_explora/virtual_ar_view_screen.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/virtual_ar_view_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
