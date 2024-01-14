@@ -1,6 +1,7 @@
 import 'package:ar_visionary_explora/components/common_back_button.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/widgets/related_item_type.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
@@ -9,58 +10,94 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key});
+  final String index;
+  const ProductDetails({super.key, required this.index});
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetails> createState() => _ProductDetailsState(index: index);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  final String index;
+
+  _ProductDetailsState({required this.index});
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: SizeConfig.w(context),
-        height: SizeConfig.h(context),
-        child: Stack(
-          children: [
-            const UpperSection(),
-            const Positioned(
-              top: 256,
-              child: ProductDetailsSection(),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 60),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomButton(
-                      text: "Add to Cart",
-                      onTap: () {},
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("items")
+            .orderBy("publishedDate", descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Items itemsInfo = Items.fromJson(snapshot.data!.docs
+                .firstWhere((doc) => doc['itemID'] == index)
+                .data());
+
+            print(itemsInfo);
+
+            return SizedBox(
+              width: SizeConfig.w(context),
+              height: SizeConfig.h(context),
+              child: Stack(
+                children: [
+                  UpperSection(itemsInfo: itemsInfo),
+                  Positioned(
+                    top: 256,
+                    child: ProductDetailsSection(itemsInfo: itemsInfo),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CustomButton(
+                            text: "Add to Cart",
+                            onTap: () {},
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          CustomButton(
+                            text: "Try AR View",
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(
-                      text: "Try AR View",
-                      onTap: () {},
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
 }
 
 class ProductDetailsSection extends StatelessWidget {
-  const ProductDetailsSection({
-    super.key,
+  final Items? itemsInfo;
+  final BuildContext? context;
+
+  ProductDetailsSection({
+    this.itemsInfo,
+    this.context,
   });
 
   @override
@@ -78,32 +115,33 @@ class ProductDetailsSection extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(29, 34, 29, 0),
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                "Sofa",
+                itemsInfo?.itemName ?? "default name",
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
-              COunterSection(),
+              const COunterSection(),
             ],
           ),
           const SizedBox(
             height: 21,
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: CustomText(
-              "LKR. 120 000",
+              itemsInfo?.itemPrice ?? "0",
               fontSize: 14,
             ),
           ),
           const SizedBox(
             height: 28,
           ),
-          const CustomText(
-            "loerieujdshfughdfuygdsufgudsg u sedugfdusgf usdgfuydsgfuy dufguds usdfgfruydsg dfghdsu  sdufg dsuf udsf sufgsdfugds ufdsuf udsf udsfgds dusfgds uufsdg udfgusd fgusdfisd",
+          CustomText(
+            itemsInfo?.itemDescription ??
+                "loerieujdshfughdfuygdsufgudsg u sedugfdusgf usdgfuydsgfuy dufguds usdfgfruydsg dfghdsu  sdufg dsuf udsf sufgsdfugds ufdsuf udsf udsfgds dusfgds uufsdg udfgusd fgusdfisd",
             textAlign: TextAlign.justify,
             fontSize: 13,
           ),
@@ -182,8 +220,12 @@ class COunterSection extends StatelessWidget {
 }
 
 class UpperSection extends StatelessWidget {
-  const UpperSection({
-    super.key,
+  final Items? itemsInfo;
+  final BuildContext? context;
+
+  UpperSection({
+    this.itemsInfo,
+    this.context,
   });
 
   @override
@@ -192,10 +234,11 @@ class UpperSection extends StatelessWidget {
       height: 290,
       width: SizeConfig.w(context),
       alignment: Alignment.topLeft,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.primaryColor,
         image: DecorationImage(
-          image: NetworkImage(AppAssets.dummyImage),
+          image: NetworkImage(
+              itemsInfo?.itemImage ?? 'https://example.com/default_image.jpg'),
           fit: BoxFit.cover,
         ),
       ),
