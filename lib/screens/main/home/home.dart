@@ -126,11 +126,15 @@ class ProductTile extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomText(
-                    "Sofa",
-                    fontSize: 15,
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w500,
+                  SizedBox(
+                    width: 60,
+                    child: CustomText(
+                      "Sofa",
+                      fontSize: 15,
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w500,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   CustomText(
                     "Rs.120 000",

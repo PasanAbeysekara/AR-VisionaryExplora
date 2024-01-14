@@ -1,9 +1,11 @@
 import 'package:ar_visionary_explora/components/common_back_button.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/widgets/related_item_type.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/utils/helpers/size_config.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -20,12 +22,34 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: SizedBox(
         width: SizeConfig.w(context),
         height: SizeConfig.h(context),
-        child: const Stack(
+        child: Stack(
           children: [
-            UpperSection(),
-            Positioned(
+            const UpperSection(),
+            const Positioned(
               top: 256,
               child: ProductDetailsSection(),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomButton(
+                      text: "Add to Cart",
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      text: "Try AR View",
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -45,16 +69,16 @@ class ProductDetailsSection extends StatelessWidget {
       width: SizeConfig.w(context),
       height: SizeConfig.h(context),
       decoration: const BoxDecoration(
-        color: AppColors.primaryColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(34),
           topRight: Radius.circular(34),
         ),
       ),
       padding: const EdgeInsets.fromLTRB(29, 34, 29, 0),
-      child: const Column(
+      child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
@@ -65,28 +89,28 @@ class ProductDetailsSection extends StatelessWidget {
               COunterSection(),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 21,
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: CustomText(
               "LKR. 120 000",
               fontSize: 14,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 28,
           ),
-          CustomText(
+          const CustomText(
             "loerieujdshfughdfuygdsufgudsg u sedugfdusgf usdgfuydsgfuy dufguds usdfgfruydsg dfghdsu  sdufg dsuf udsf sufgsdfugds ufdsuf udsf udsfgds dusfgds uufsdg udfgusd fgusdfisd",
             textAlign: TextAlign.justify,
             fontSize: 13,
           ),
-          SizedBox(
+          const SizedBox(
             height: 28,
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: CustomText(
               "Related item",
@@ -95,7 +119,22 @@ class ProductDetailsSection extends StatelessWidget {
               color: AppColors.dartBrown,
             ),
           ),
-          RelatedItemTile(),
+          const SizedBox(
+            height: 28,
+          ),
+          SizedBox(
+            height: 90,
+            child: ListView.separated(
+              itemCount: 6,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return const RelatedItemTile();
+              },
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 20,
+              ),
+            ),
+          ),
         ],
       ),
     );
