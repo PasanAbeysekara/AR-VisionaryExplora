@@ -1,4 +1,4 @@
-import 'package:ar_visionary_explora/screens/main/myhome/item_ui_design_widget.dart';
+import 'package:ar_visionary_explora/screens/main/home/item_ui_design_widget.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/item_upload_screen.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

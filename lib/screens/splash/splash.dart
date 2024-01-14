@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:ar_visionary_explora/components/app_logo.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
-import 'package:ar_visionary_explora/constants/app_colors.dart';
+import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/screens/auth/signup.dart';
 import 'package:flutter/material.dart';
 

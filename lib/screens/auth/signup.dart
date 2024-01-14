@@ -6,7 +6,7 @@ import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app_colors.dart';
+import '../../utils/constants/app_colors.dart';
 
 
 class Signup extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:ar_visionary_explora/constants/app_assets.dart';
+import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

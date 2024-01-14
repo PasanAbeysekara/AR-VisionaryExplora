@@ -5,10 +5,11 @@ import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/custom_textfield.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/components/social_button.dart';
-import 'package:ar_visionary_explora/constants/app_assets.dart';
-import 'package:ar_visionary_explora/constants/app_colors.dart';
+import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
+import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/screens/auth/fogot_password.dart';
 import 'package:ar_visionary_explora/screens/main/main_screen.dart';
+import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -87,10 +88,7 @@ class _LoginState extends State<Login> {
                 CustomButton(
                   text: "Login",
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainScreen()),
-                    );
+                     Helpers.navigateToPage(context, const MainScreen());
                   },
                 ),
                 const SizedBox(
