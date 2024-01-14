@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBsuL-BZWJBBzvaRPHzkRBZijg85rsAWQ4',
-    appId: '1:408294414641:web:962e51565526339e01b810',
-    messagingSenderId: '408294414641',
-    projectId: 'ar-visionary-explora-2ca98',
-    authDomain: 'ar-visionary-explora-2ca98.firebaseapp.com',
-    storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
-    measurementId: 'G-DPLN0T9DLQ',
+    apiKey: 'AIzaSyDU4teQLheC-O1cD1PdrZzyB6liDDI7_7M',
+    appId: '1:1010703168805:web:9c4b693c7993d66e24d6cc',
+    messagingSenderId: '1010703168805',
+    projectId: 'head-first-dd93f',
+    authDomain: 'head-first-dd93f.firebaseapp.com',
+    storageBucket: 'head-first-dd93f.appspot.com',
+    measurementId: 'G-MKJ4WQ51WN',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyATkBkFdPL8neye9j0kkBLKlcsKoxWzY_Q',
-    appId: '1:408294414641:android:82a6668106c11a7701b810',
-    messagingSenderId: '408294414641',
-    projectId: 'ar-visionary-explora-2ca98',
-    storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
+    apiKey: 'AIzaSyBYF475S07aVKZyRFlSwOD_pdsHFmpa0sg',
+    appId: '1:1010703168805:android:df0ecec3ca4f45e024d6cc',
+    messagingSenderId: '1010703168805',
+    projectId: 'head-first-dd93f',
+    storageBucket: 'head-first-dd93f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDi1aGYJpCQvoKt674bB6L5vBG_EHvrbo8',
-    appId: '1:408294414641:ios:a8d2654374572cc901b810',
-    messagingSenderId: '408294414641',
-    projectId: 'ar-visionary-explora-2ca98',
-    storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
+    apiKey: 'AIzaSyBPaw2SAgoCzNswbumLH5PLZwxAakdxD1I',
+    appId: '1:1010703168805:ios:f66b3ee6c4ed934324d6cc',
+    messagingSenderId: '1010703168805',
+    projectId: 'head-first-dd93f',
+    storageBucket: 'head-first-dd93f.appspot.com',
     iosBundleId: 'com.example.arVisionaryExplora',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDi1aGYJpCQvoKt674bB6L5vBG_EHvrbo8',
-    appId: '1:408294414641:ios:1c7017daec614c6b01b810',
-    messagingSenderId: '408294414641',
-    projectId: 'ar-visionary-explora-2ca98',
-    storageBucket: 'ar-visionary-explora-2ca98.appspot.com',
+    apiKey: 'AIzaSyBPaw2SAgoCzNswbumLH5PLZwxAakdxD1I',
+    appId: '1:1010703168805:ios:685ca9a97bd0870224d6cc',
+    messagingSenderId: '1010703168805',
+    projectId: 'head-first-dd93f',
+    storageBucket: 'head-first-dd93f.appspot.com',
     iosBundleId: 'com.example.arVisionaryExplora.RunnerTests',
   );
 }
