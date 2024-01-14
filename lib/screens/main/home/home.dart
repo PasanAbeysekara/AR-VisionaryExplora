@@ -8,22 +8,20 @@ import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
-  //  final Items? itemsInfo;
-  // final BuildContext? context;
-
-  // Home({
-  //   this.itemsInfo,
-  //   this.context,
-  // });
-
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,29 +66,66 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Expanded ProductGrid() {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
+class ProductGrid extends StatelessWidget {
+  const ProductGrid();
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
-      child: FadeInLeft(
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.75,
-            crossAxisSpacing: 19,
-            mainAxisSpacing: 44,
-          ),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return ProductTile();
-          },
-        ),
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("items")
+            .orderBy("publishedDate", descending: true)
+            .snapshots(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            var products = snapshot.data!;
+            return FadeInLeft(
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.75,
+                    crossAxisSpacing: 19,
+                    mainAxisSpacing: 44,
+                  ),
+                  itemCount: products.docs.length,
+                  itemBuilder: (context, index) {
+                    Items eachItemInfo = Items.fromJson(
+                        products.docs[index].data() as Map<String, dynamic>);
+                    return ProductTile(
+                      // product: products[index]
+                      itemsInfo: eachItemInfo,
+                      context: context,
+                    );
+                  }),
+            );
+          } else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
       ),
     );
   }
 }
 
 class ProductTile extends StatelessWidget {
-  const ProductTile({
-    super.key,
+  // final Product product;
+  final Items? itemsInfo;
+  final BuildContext? context;
+
+  // const ProductTile({required this.product});
+
+  ProductTile({
+    this.itemsInfo,
+    this.context,
   });
 
   @override
@@ -103,9 +138,10 @@ class ProductTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.circular(12),
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(AppAssets.dummyImage),
+            image: NetworkImage(itemsInfo?.itemImage ??
+                'https://example.com/default_image.jpg'),
           ),
         ),
         child: Column(
@@ -131,13 +167,13 @@ class ProductTile extends StatelessWidget {
                 color: AppColors.lightGreen,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width: 60,
                     child: CustomText(
-                      "Sofa",
+                      itemsInfo?.itemName ?? "default name",
                       fontSize: 15,
                       color: AppColors.white,
                       fontWeight: FontWeight.w500,
@@ -145,7 +181,7 @@ class ProductTile extends StatelessWidget {
                     ),
                   ),
                   CustomText(
-                    "Rs.120 000",
+                    itemsInfo?.itemPrice ?? "0",
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),
