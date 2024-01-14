@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/screens/main/cart/cart.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/product_details.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
@@ -34,7 +35,14 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(AppAssets.menuIcon),
-                SvgPicture.asset(AppAssets.cartIcon),
+                InkWell(
+                  onTap: () {
+                    Helpers.navigateToPage(context, const Cart());
+                  },
+                  child: SvgPicture.asset(
+                    AppAssets.cartIcon,
+                  ),
+                ),
               ],
             ),
             const SizedBox(
