@@ -56,9 +56,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 60),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomButton(
                             text: "Add to Cart",
