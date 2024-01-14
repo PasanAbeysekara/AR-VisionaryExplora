@@ -24,7 +24,7 @@ class CustomerTextField extends StatelessWidget {
             color: AppColors.ash.withOpacity(.4),
             offset: const Offset(0, 2),
             blurRadius: 10,
-          )
+          ),
         ],
       ),
       child: TextField(
