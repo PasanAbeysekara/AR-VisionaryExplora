@@ -132,7 +132,8 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Helpers.navigateToPage(context, const ProductDetails());
+        Helpers.navigateToPage(context,
+            ProductDetails(index: itemsInfo?.itemID ?? "1704364391579"));
       },
       child: Container(
         decoration: BoxDecoration(

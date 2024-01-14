@@ -2,7 +2,6 @@ import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.text, required this.onTap});
 
@@ -14,8 +13,9 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 250,
+        width: 150,
         height: 50,
+        margin: EdgeInsets.all(10.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: AppColors.primaryColor,
