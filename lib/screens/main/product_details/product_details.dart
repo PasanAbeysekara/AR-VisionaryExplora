@@ -2,6 +2,7 @@ import 'package:ar_visionary_explora/components/common_back_button.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/virtual_ar_view_screen.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/widgets/related_item_type.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
@@ -69,7 +70,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           CustomButton(
                             text: "Try AR View",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (c) => VirtualARViewScreen(
+                                    clickedItemImageLink:
+                                        itemsInfo.itemImage.toString(),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

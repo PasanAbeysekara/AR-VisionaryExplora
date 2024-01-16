@@ -22,7 +22,7 @@ class _VirtualARViewScreenState extends State<VirtualARViewScreen> {
         title: const Text(
           "AR View",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.red,
           ),
         ),
         leading: IconButton(
