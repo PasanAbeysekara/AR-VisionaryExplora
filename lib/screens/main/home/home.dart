@@ -117,11 +117,8 @@ class ProductGrid extends StatelessWidget {
 }
 
 class ProductTile extends StatelessWidget {
-  // final Product product;
   final Items? itemsInfo;
   final BuildContext? context;
-
-  // const ProductTile({required this.product});
 
   ProductTile({
     this.itemsInfo,
@@ -137,54 +134,60 @@ class ProductTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.amber,
           borderRadius: BorderRadius.circular(12),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(itemsInfo?.itemImage ??
-                'https://example.com/default_image.jpg'),
-          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.favorite_border,
-                color: AppColors.ash,
+            Expanded(
+              flex: 3,
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.network(
+                  itemsInfo?.itemImage ??
+                      'https://example.com/default_image.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Container(
-              height: 38,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.lightGreen,
-                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(12)),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 60,
-                    child: CustomText(
-                      itemsInfo?.itemName ?? "default name",
-                      fontSize: 15,
-                      color: AppColors.white,
-                      fontWeight: FontWeight.w500,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: CustomText(
+                          itemsInfo?.itemName ?? "default name",
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
                   ),
+                  SizedBox(height: 8),
                   CustomText(
-                    itemsInfo?.itemPrice ?? "0",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    'LKR: ${itemsInfo?.itemPrice ?? "0"}',
+                    fontSize: 16,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w600,
                   ),
                 ],
               ),

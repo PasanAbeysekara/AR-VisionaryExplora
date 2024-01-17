@@ -1,94 +1,88 @@
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
-import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CartTile extends StatelessWidget {
+  final Items item;
+  final Function(Items) onRemove;
+
   const CartTile({
-    super.key,
+    required this.item,
+    required this.onRemove,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      margin: const EdgeInsets.symmetric(horizontal: 30),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.ash.withOpacity(.3),
-            offset: const Offset(0, 2),
-            blurRadius: 10,
-          )
-        ],
-        borderRadius: BorderRadiusDirectional.circular(15),
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadiusDirectional.circular(15),
-            child: Image.network(
-              AppAssets.dummyImage,
-              width: 70,
-              height: 70,
-              fit: BoxFit.fill,
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomText(
-                "Sofa",
-                fontSize: 14,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(item.itemImage ?? ''),
+                ),
               ),
-              Row(
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    child: Icon(Icons.add),
+                  // Product Name
+                  Text(
+                    item.itemName ?? '',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(
-                    width: 15,
+                  SizedBox(height: 2),
+                  // Product Price
+                  Text(
+                    'LKR ${item.itemPrice ?? "0"}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.red,
+                    ),
                   ),
-                  CustomText(
-                    "1",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  SizedBox(height: 2),
+                  // Product Description
+                  Text(
+                    item.sellerName ?? '',
+                    style: TextStyle(fontSize: 10),
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    child: Icon(Icons.remove),
+                  SizedBox(height: 2),
+                  // Product Description
+                  Text(
+                    item.status ?? '',
+                    style: TextStyle(fontSize: 10, color: Colors.green),
                   ),
                 ],
               ),
-            ],
-          ),
-          Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ),
-              ),
-              const CustomText(
-                "LKR. 120,000",
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              )
-            ],
-          ),
-        ],
+            ),
+            SizedBox(width: 8),
+            // Remove Button
+            IconButton(
+              icon: Icon(Icons.remove_circle),
+              color: Colors.red,
+              onPressed: () => onRemove(item),
+            ),
+          ],
+        ),
       ),
     );
   }
