@@ -71,7 +71,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   UpperSection(itemsInfo: itemsInfo),
                   Positioned(
-                    top: 326,
+                    top: 440,
                     child: ProductDetailsSection(itemsInfo: itemsInfo),
                   ),
                   Align(
@@ -211,30 +211,28 @@ class ProductDetailsSection extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const COunterSection(),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          const Row(
-            children: [
-              Icon(
-                Icons.star,
-                color: Colors.yellow,
-                size: 20,
+              // Rating Section
+              const Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 20,
+                  ),
+                  SizedBox(width: 4),
+                  CustomText(
+                    "4.5", // Replace with the actual rating value
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  CustomText(
+                    "  (50 reviews)", // Replace with the actual rating value
+                    fontSize: 12,
+                    color: Color.fromARGB(255, 218, 210, 210),
+                  ),
+                ],
               ),
-              SizedBox(width: 4),
-              CustomText(
-                "4.5", // Replace with the actual rating value
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              CustomText(
-                "  (50 reviews)", // Replace with the actual rating value
-                fontSize: 12,
-                color: Color.fromARGB(255, 218, 210, 210),
-              ),
+              // const COunterSection(),
             ],
           ),
           const SizedBox(

@@ -2,6 +2,9 @@ import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:ussd_phone_call_sms/ussd_phone_call_sms.dart';
 
 class CartTile extends StatelessWidget {
   final Items item;
@@ -37,7 +40,7 @@ class CartTile extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,45 +48,113 @@ class CartTile extends StatelessWidget {
                   // Product Name
                   Text(
                     item.itemName ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   // Product Price
                   Text(
                     'LKR ${item.itemPrice ?? "0"}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.red,
                     ),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   // Product Description
                   Text(
                     item.sellerName ?? '',
-                    style: TextStyle(fontSize: 10),
+                    style: const TextStyle(fontSize: 10),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   // Product Description
                   Text(
                     item.status ?? '',
-                    style: TextStyle(fontSize: 10, color: Colors.green),
+                    style: const TextStyle(fontSize: 10, color: Colors.green),
                   ),
                 ],
               ),
             ),
+            const SizedBox(width: 8),
+            // Phone and Message Icons
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: IconButton(
+                    icon: const Icon(Icons.phone),
+                    color: Colors.blue,
+                    onPressed: () => _showConfirmationDialog(
+                      context,
+                      'Make a Call',
+                      'Do you want to make a call to ${item.sellerName}?',
+                      () => FlutterPhoneDirectCaller.callNumber(
+                          item.sellerPhone ?? '1234567890'),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: IconButton(
+                    icon: Icon(Icons.message),
+                    color: Colors.green,
+                    onPressed: () => _showConfirmationDialog(
+                      context,
+                      'Send Message',
+                      'Do you want to send a message to ${item.sellerName}?',
+                      () => launch('sms:${item.sellerPhone ?? '1234567890'}'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(width: 8),
             // Remove Button
-            IconButton(
-              icon: Icon(Icons.remove_circle),
-              color: Colors.red,
-              onPressed: () => onRemove(item),
+            Container(
+              margin: EdgeInsets.only(top: 15),
+              child: IconButton(
+                icon: Icon(Icons.remove_circle),
+                color: Colors.red,
+                onPressed: () => onRemove(item),
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showConfirmationDialog(
+    BuildContext context,
+    String title,
+    String content,
+    VoidCallback onConfirm,
+  ) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                onConfirm();
+                Navigator.of(context).pop();
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

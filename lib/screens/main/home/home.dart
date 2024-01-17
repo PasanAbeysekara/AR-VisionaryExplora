@@ -9,6 +9,7 @@ import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -88,27 +89,33 @@ class ProductGrid extends StatelessWidget {
             var products = snapshot.data!;
             return FadeInLeft(
               child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.75,
-                    crossAxisSpacing: 19,
-                    mainAxisSpacing: 44,
-                  ),
-                  itemCount: products.docs.length,
-                  itemBuilder: (context, index) {
-                    Items eachItemInfo = Items.fromJson(
-                        products.docs[index].data() as Map<String, dynamic>);
-                    return ProductTile(
-                      // product: products[index]
-                      itemsInfo: eachItemInfo,
-                      context: context,
-                    );
-                  }),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.75,
+                  crossAxisSpacing: 19,
+                  mainAxisSpacing: 44,
+                ),
+                itemCount: products.docs.length,
+                itemBuilder: (context, index) {
+                  Items eachItemInfo = Items.fromJson(
+                      products.docs[index].data() as Map<String, dynamic>);
+                  return ProductTile(
+                    itemsInfo: eachItemInfo,
+                    context: context,
+                  );
+                },
+              ),
             );
           } else if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
           } else {
-            return CircularProgressIndicator();
+            // Use a custom loading indicator
+            return Center(
+              child: SpinKitFadingCircle(
+                color: Colors.blue, // Choose your desired color
+                size: 50.0, // Choose your desired size
+              ),
+            );
           }
         },
       ),
@@ -137,9 +144,7 @@ class ProductTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
+              color: Color.fromARGB(255, 218, 236, 232),
               offset: Offset(0, 3),
             ),
           ],
@@ -161,7 +166,6 @@ class ProductTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(12)),
               ),
@@ -174,7 +178,7 @@ class ProductTile extends StatelessWidget {
                       Expanded(
                         child: CustomText(
                           itemsInfo?.itemName ?? "default name",
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
@@ -182,11 +186,21 @@ class ProductTile extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 8),
                   CustomText(
                     'LKR: ${itemsInfo?.itemPrice ?? "0"}',
-                    fontSize: 16,
+                    fontSize: 12,
                     color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  CustomText(
+                    itemsInfo?.sellerName ?? "0",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  CustomText(
+                    itemsInfo?.status ?? "0",
+                    fontSize: 10,
+                    color: Color.fromARGB(255, 85, 168, 53),
                     fontWeight: FontWeight.w600,
                   ),
                 ],
