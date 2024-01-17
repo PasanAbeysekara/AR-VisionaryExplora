@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/screens/main/cart/cart.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/product_details.dart';
@@ -8,6 +9,7 @@ import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -34,7 +36,12 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset(AppAssets.menuIcon),
+                InkWell(
+                  onTap: () {
+                    Provider.of<AuthProvider>(context, listen: false).logOut();
+                  },
+                  child: SvgPicture.asset(AppAssets.menuIcon),
+                ),
                 InkWell(
                   onTap: () {
                     Helpers.navigateToPage(context, const Cart());

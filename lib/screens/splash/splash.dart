@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:ar_visionary_explora/components/app_logo.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/screens/auth/signup.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -19,8 +21,10 @@ class _SplashState extends State<Splash> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Signup()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => const Signup()));
+        Provider.of<AuthProvider>(context, listen: false)
+            .initializedUser(context);
       },
     );
 

@@ -5,6 +5,7 @@ import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/custom_textfield.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/components/social_button.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/screens/auth/fogot_password.dart';
@@ -14,6 +15,7 @@ import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,10 +25,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  //email textfiled controller
-  final TextEditingController _email = TextEditingController();
-  // password textfiled controller
-  final TextEditingController _password = TextEditingController();
+  // //email textfiled controller
+  // final TextEditingController _email = TextEditingController();
+  // // password textfiled controller
+  // final TextEditingController _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,7 @@ class _LoginState extends State<Login> {
                 CustomerTextField(
                   hintText: "Enter your Email",
                   labelText: "Email",
-                  controller: _email,
+                  controller: Provider.of<AuthProvider>(context).loginEmail,
                 ),
                 const SizedBox(
                   height: 10,
@@ -66,7 +68,7 @@ class _LoginState extends State<Login> {
                   hintText: "Enter your Password",
                   labelText: "Password",
                   isObscure: true,
-                  controller: _password,
+                  controller: Provider.of<AuthProvider>(context).loginPassword,
                 ),
                 const SizedBox(
                   height: 10,
@@ -92,15 +94,14 @@ class _LoginState extends State<Login> {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomButton(
-                  text: "Login",
-                  onTap: () {
-                    Logger().i(_email.text);
-                    //  Helpers.navigateToPage(context, const MainScreen());
-                     if (validateField()) {
-                      Logger().w("All fields are validated");
-                    }
-                  },
+                Consumer<AuthProvider>(
+                  builder: (context, value, child) => CustomButton(
+                    text: "Login",
+                    isLoading: value.isLoading,
+                    onTap: () {
+                      value.startLogin(context);
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 23,
@@ -134,26 +135,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-  bool validateField() {
-    // first checking if all the text field are emty or not
-    if (_email.text.isEmpty &&
-        _password.text.isEmpty) {
-      Logger().w("Please fill the all the field");
-      AlertHelpers.showAlert(context, "Please fill the all the fields");
-      return false;
-    } else if (!_email.text.contains("@")) {
-      Logger().w("Please enter valid email");
-      AlertHelpers.showAlert(context, "Please enter valid email");
-      return false;
-    } else if (_password.text.length < 6) {
-      Logger().w("Password must have more than 6 digits");
-      AlertHelpers.showAlert(context, "Password must have more than 6 digits");
-      return false;
-    } else {
-      Logger().w("All fileds are validated");
-      AlertHelpers.showAlert(context, "All fileds are validated");
-      return true;
-    }
   }
 }

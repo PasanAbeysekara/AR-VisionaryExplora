@@ -38,7 +38,7 @@ dependencies:
   image_picker: ^1.0.5
   fluttertoast: ^8.1.2
   firebase_storage: ^11.5.6
-  cloud_firestore: ^4.13.6
+  cloud_firestore: ^4.14.0
   augmented_reality_plugin: ^4.0.1
   firebase_core: ^2.24.2
   google_fonts: ^6.1.0
