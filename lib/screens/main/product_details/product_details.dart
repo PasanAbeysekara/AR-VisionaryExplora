@@ -1,6 +1,7 @@
 import 'package:ar_visionary_explora/components/common_back_button.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
+import 'package:ar_visionary_explora/screens/main/cart/provider/CartProvider.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/virtual_ar_view_screen.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/widgets/related_item_type.dart';
@@ -9,6 +10,7 @@ import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/utils/helpers/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   final String index;
@@ -63,7 +65,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         children: [
                           CustomButton(
                             text: "Add to Cart",
-                            onTap: () {},
+                            onTap: () {
+                              // Access the CartProvider and add the item to the cart
+                              final cartProvider = Provider.of<CartProvider>(
+                                  context,
+                                  listen: false);
+                              cartProvider.addToCart(itemsInfo);
+                            },
                           ),
                           const SizedBox(
                             height: 20,

@@ -1,7 +1,9 @@
+import 'package:ar_visionary_explora/screens/main/cart/provider/CartProvider.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/firebase_options.dart';
 import 'package:ar_visionary_explora/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   try {
@@ -12,7 +14,13 @@ Future<void> main() async {
   } catch (errorMsg) {
     print("Error: " + errorMsg.toString());
   }
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AR Visionary Explora App',
-        debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0FA965)),
         useMaterial3: true,
