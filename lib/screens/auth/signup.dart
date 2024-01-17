@@ -91,6 +91,7 @@ class _SignupState extends State<Signup> {
                   builder: (context, value, child) {
                     return CustomButton(
                       text: "Sign up",
+                      isLoading: value.isLoading,
                       onTap: () {
                         value.startSignup(context);
                       },

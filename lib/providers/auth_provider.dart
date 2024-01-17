@@ -46,21 +46,37 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Loader state
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  /// set loader state
+  void setLoading(bool val) {
+    _isLoading = val;
+    notifyListeners();
+  }
+
   /// Start the signup process
   Future<void> startSignup(BuildContext context) async {
     try {
       /// validate the input
       if (validateField(context)) {
+        // start the loader
+        setLoading(true);
         // start creating the user
         await _authConroller
             .signupUser(context, _email.text, _password.text)
             .then((value) {
+          // stop the loader
+          setLoading(false);
           // AlertHelpers.showAlert(context, "User Created Successfully",
           //     type: DialogType.success);
         });
       }
     } catch (e) {
       Logger().w(e);
+      setLoading(false);
+      AlertHelpers.showAlert(context, e.toString());
     }
   }
 }
