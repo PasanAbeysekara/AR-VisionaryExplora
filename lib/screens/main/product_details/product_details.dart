@@ -1,12 +1,14 @@
 import 'package:ar_visionary_explora/components/common_back_button.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
+import 'package:ar_visionary_explora/screens/main/cart/cart.dart';
 import 'package:ar_visionary_explora/screens/main/cart/provider/CartProvider.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/virtual_ar_view_screen.dart';
 import 'package:ar_visionary_explora/screens/main/product_details/widgets/related_item_type.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
+import 'package:ar_visionary_explora/utils/helpers/helpers.dart';
 import 'package:ar_visionary_explora/utils/helpers/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -82,14 +84,47 @@ class _ProductDetailsState extends State<ProductDetails> {
                           CustomButton(
                             text: "Add to Cart",
                             onTap: () {
-                              // Access the CartProvider and add the item to the cart
-                              final cartProvider = Provider.of<CartProvider>(
-                                  context,
-                                  listen: false);
-                              cartProvider.addToCart(itemsInfo);
-
-                              // Show a notification
-                              showNotification('Item added to cart', context);
+                              // Show a confirmation dialog
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Add to Cart"),
+                                    content: Text(
+                                        "Do you want to keep shopping or go to the cart?"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Close the dialog
+                                          // Access the CartProvider and add the item to the cart
+                                          final cartProvider =
+                                              Provider.of<CartProvider>(context,
+                                                  listen: false);
+                                          cartProvider.addToCart(itemsInfo);
+                                          showNotification(
+                                              'Item added to cart', context);
+                                        },
+                                        child: Text("Keep Shopping"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Close the dialog
+                                          // Navigate to the cart screen
+                                          final cartProvider =
+                                              Provider.of<CartProvider>(context,
+                                                  listen: false);
+                                          cartProvider.addToCart(itemsInfo);
+                                          Helpers.navigateToPage(
+                                              context, const Cart());
+                                        },
+                                        child: Text("Go to Cart"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                           ),
                           const SizedBox(
