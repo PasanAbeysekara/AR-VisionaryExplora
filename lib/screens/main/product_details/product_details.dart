@@ -11,6 +11,7 @@ import 'package:ar_visionary_explora/utils/helpers/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductDetails extends StatefulWidget {
   final String index;
@@ -28,6 +29,21 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void showNotification(String message, BuildContext context) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Theme.of(context).primaryColor,
+      textColor: Colors.white,
+      fontSize: 16.0,
+      webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      webPosition: "center",
+      webShowClose: true,
+    );
   }
 
   @override
@@ -71,6 +87,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   context,
                                   listen: false);
                               cartProvider.addToCart(itemsInfo);
+
+                              // Show a notification
+                              showNotification('Item added to cart', context);
                             },
                           ),
                           const SizedBox(

@@ -12,40 +12,40 @@ class BottomRaw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      height: 200,
+      padding: EdgeInsets.symmetric(horizontal: 40),
       color: AppColors.lightGreen,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 8,
+          ),
           CartAmmountRaw(
             name: "Product Price",
             ammount: "LKR. 120,000",
           ),
           const SizedBox(
-            height: 12,
+            height: 8,
           ),
           CartAmmountRaw(
             name: "Discount",
             ammount: "LKR. 10,000",
           ),
           const SizedBox(
-            height: 12,
+            height: 8,
           ),
           CartAmmountRaw(
             name: "Tax",
             ammount: "LKR. 5,000",
           ),
           const SizedBox(
-            height: 12,
+            height: 8,
           ),
           CartAmmountRaw(
             name: "Total Price",
             ammount: "LKR. 115,000",
             isTotal: true,
-          ),
-          const SizedBox(
-            height: 20,
           ),
           CustomButton(
             text: "Place Order",

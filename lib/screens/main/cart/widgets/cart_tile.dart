@@ -16,28 +16,28 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Product Image
             Container(
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(item.itemImage ?? ''),
                 ),
               ),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,29 +46,29 @@ class CartTile extends StatelessWidget {
                   Text(
                     item.itemName ?? '',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 2),
                   // Product Price
                   Text(
                     '\$${item.itemPrice ?? "0"}',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                       color: Colors.green,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 2),
                   // Product Description
                   Text(
                     item.itemDescription ?? '',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 10),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: 8),
             // Remove Button
             IconButton(
               icon: Icon(Icons.remove_circle),
