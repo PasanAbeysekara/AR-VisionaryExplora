@@ -1,7 +1,9 @@
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/screens/main/myhome/firebase_options.dart';
 import 'package:ar_visionary_explora/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   try {
@@ -12,7 +14,15 @@ Future<void> main() async {
   } catch (errorMsg) {
     print("Error: " + errorMsg.toString());
   }
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        //ChangeNotifierProvider(create: (context) => CounterProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AR Visionary Explora App',
-        debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0FA965)),
         useMaterial3: true,
@@ -55,3 +65,4 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+

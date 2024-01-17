@@ -3,16 +3,17 @@ import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomerTextField extends StatelessWidget {
-  const CustomerTextField({
-    super.key,
-    required this.hintText,
-    required this.labelText,
-    this.isObscure = false,
-  });
+  const CustomerTextField(
+      {super.key,
+      required this.hintText,
+      required this.labelText,
+      this.isObscure = false,
+      this.controller});
 
   final String hintText;
   final String labelText;
   final bool isObscure;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class CustomerTextField extends StatelessWidget {
       ),
       child: TextField(
         obscureText: isObscure,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(color: AppColors.ash),

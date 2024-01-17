@@ -3,11 +3,16 @@ import 'package:ar_visionary_explora/components/app_logo.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/custom_textfield.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
+import 'package:ar_visionary_explora/controllers/auth_controller.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/screens/auth/login.dart';
+import 'package:ar_visionary_explora/utils/helpers/alert_helpers.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/constants/app_colors.dart';
-
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -40,24 +45,27 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
-                const CustomerTextField(
+                CustomerTextField(
                   hintText: "Enter your UserName",
                   labelText: "Username",
+                  controller: Provider.of<AuthProvider>(context).userName,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomerTextField(
+                CustomerTextField(
                   hintText: "Enter your Email",
                   labelText: "Email",
+                  controller: Provider.of<AuthProvider>(context).email,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomerTextField(
+                CustomerTextField(
                   hintText: "Enter your Password",
                   labelText: "Password",
                   isObscure: true,
+                  controller: Provider.of<AuthProvider>(context).password,
                 ),
                 const SizedBox(
                   height: 10,
@@ -79,9 +87,15 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomButton(
-                  text: "Sign up",
-                  onTap: () {},
+                Consumer<AuthProvider>(
+                  builder: (context, value, child) {
+                    return CustomButton(
+                      text: "Sign up",
+                      onTap: () {
+                        value.startSignup(context);
+                      },
+                    );
+                  },
                 )
               ],
             ),
