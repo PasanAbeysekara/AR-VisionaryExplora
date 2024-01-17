@@ -67,7 +67,7 @@ class _CartState extends State<Cart> {
                     );
                   },
                   separatorBuilder: (contex, Index) => const SizedBox(
-                    height: 20,
+                    height: 4,
                   ),
                   itemCount: cartProvider.cartItems.length,
                 ),
@@ -76,7 +76,7 @@ class _CartState extends State<Cart> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomRaw(),
+      bottomNavigationBar: BottomRaw(cartProvider: cartProvider),
     );
   }
 }

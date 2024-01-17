@@ -71,7 +71,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   UpperSection(itemsInfo: itemsInfo),
                   Positioned(
-                    top: 256,
+                    top: 326,
                     child: ProductDetailsSection(itemsInfo: itemsInfo),
                   ),
                   Align(
@@ -172,14 +172,13 @@ class ProductDetailsSection extends StatelessWidget {
     this.itemsInfo,
     this.context,
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: SizeConfig.w(context),
       height: SizeConfig.h(context),
       decoration: const BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.lightGreen,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(34),
           topRight: Radius.circular(34),
@@ -196,55 +195,56 @@ class ProductDetailsSection extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
-              const COunterSection(),
             ],
           ),
           const SizedBox(
             height: 21,
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: CustomText(
-              itemsInfo?.itemPrice ?? "0",
-              fontSize: 14,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: CustomText(
+                  "LKR: ${itemsInfo?.itemPrice ?? "0"}",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const COunterSection(),
+            ],
           ),
           const SizedBox(
-            height: 28,
+            height: 16,
+          ),
+          const Row(
+            children: [
+              Icon(
+                Icons.star,
+                color: Colors.yellow,
+                size: 20,
+              ),
+              SizedBox(width: 4),
+              CustomText(
+                "4.5", // Replace with the actual rating value
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              CustomText(
+                "  (50 reviews)", // Replace with the actual rating value
+                fontSize: 12,
+                color: Color.fromARGB(255, 218, 210, 210),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
           ),
           CustomText(
             itemsInfo?.itemDescription ??
                 "loerieujdshfughdfuygdsufgudsg u sedugfdusgf usdgfuydsgfuy dufguds usdfgfruydsg dfghdsu  sdufg dsuf udsf sufgsdfugds ufdsuf udsf udsfgds dusfgds uufsdg udfgusd fgusdfisd",
             textAlign: TextAlign.justify,
             fontSize: 13,
-          ),
-          const SizedBox(
-            height: 28,
-          ),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: CustomText(
-              "Related item",
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.dartBrown,
-            ),
-          ),
-          const SizedBox(
-            height: 28,
-          ),
-          SizedBox(
-            height: 90,
-            child: ListView.separated(
-              itemCount: 6,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return const RelatedItemTile();
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 20,
-              ),
-            ),
           ),
         ],
       ),
@@ -304,11 +304,11 @@ class UpperSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 290,
+      height: 350,
       width: SizeConfig.w(context),
       alignment: Alignment.topLeft,
       decoration: BoxDecoration(
-        color: AppColors.primaryColor,
+        // color: AppColors.primaryColor,
         image: DecorationImage(
           image: NetworkImage(
               itemsInfo?.itemImage ?? 'https://example.com/default_image.jpg'),

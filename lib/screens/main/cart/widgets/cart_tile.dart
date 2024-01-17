@@ -53,17 +53,23 @@ class CartTile extends StatelessWidget {
                   SizedBox(height: 2),
                   // Product Price
                   Text(
-                    '\$${item.itemPrice ?? "0"}',
+                    'LKR ${item.itemPrice ?? "0"}',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.green,
+                      color: Colors.red,
                     ),
                   ),
                   SizedBox(height: 2),
                   // Product Description
                   Text(
-                    item.itemDescription ?? '',
+                    item.sellerName ?? '',
                     style: TextStyle(fontSize: 10),
+                  ),
+                  SizedBox(height: 2),
+                  // Product Description
+                  Text(
+                    item.status ?? '',
+                    style: TextStyle(fontSize: 10, color: Colors.green),
                   ),
                 ],
               ),

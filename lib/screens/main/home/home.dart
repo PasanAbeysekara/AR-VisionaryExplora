@@ -184,7 +184,7 @@ class ProductTile extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   CustomText(
-                    '\$${itemsInfo?.itemPrice ?? "0"}',
+                    'LKR: ${itemsInfo?.itemPrice ?? "0"}',
                     fontSize: 16,
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.w600,
