@@ -1,5 +1,6 @@
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/helpers/alert_helpers.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,34 @@ class AuthConroller {
       )
           .then((credential) {
         Logger().w(credential);
+      });
+    } on FirebaseAuthException catch (e) {
+      AlertHelpers.showAlert(context, e.code);
+    } catch (e) {
+      AlertHelpers.showAlert(context, e.toString());
+    }
+  }
+
+  /// --- send password reset Email Function ---
+  Future<void> sendEmail(
+    BuildContext context,
+    String email,
+  ) async {
+    try {
+      // sent the email and password to firebase and try to create a user
+      // final credential =
+      //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
+
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(
+        email: email,
+      )
+          .then((Value) {
+        AlertHelpers.showAlert(context, "Email sent to your inbox",
+            type: DialogType.success);
       });
     } on FirebaseAuthException catch (e) {
       AlertHelpers.showAlert(context, e.code);

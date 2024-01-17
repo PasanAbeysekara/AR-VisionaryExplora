@@ -7,12 +7,13 @@ import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/custom_textfield.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
 import 'package:ar_visionary_explora/components/social_button.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:ar_visionary_explora/screens/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:provider/provider.dart';
 
 class FogotPassword extends StatefulWidget {
   const FogotPassword({super.key});
@@ -56,22 +57,23 @@ class _FogotPasswordState extends State<FogotPassword> {
                 const SizedBox(
                   height: 16,
                 ),
-                const CustomerTextField(
+                CustomerTextField(
                   hintText: "Enter your Email",
                   labelText: "Email",
+                  controller: Provider.of<AuthProvider>(context).resetEmail,
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                CustomButton(
-                  text: "Sent Email",
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Signup()),
-                    );
-                  },
-                ),
+                Consumer<AuthProvider>(builder: (context, value, child) {
+                  return CustomButton(
+                    text: "Sent Email",
+                    isLoading: value.isLoading,
+                    onTap: () {
+                      value.SendPasswordResetEmail(context);
+                    },
+                  );
+                }),
                 const SizedBox(
                   height: 23,
                 ),

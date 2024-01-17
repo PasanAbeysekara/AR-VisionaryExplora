@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:ar_visionary_explora/components/custom_text.dart';
 import 'package:ar_visionary_explora/components/cutomer_button.dart';
+import 'package:ar_visionary_explora/providers/auth_provider.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -62,7 +64,9 @@ class _ProfileState extends State<Profile> {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: CustomButton(
                   text: "LogOut",
-                  onTap: () {},
+                  onTap: () {
+                    Provider.of<AuthProvider>(context, listen: false).logOut();
+                  },
                 ),
               ),
             ],

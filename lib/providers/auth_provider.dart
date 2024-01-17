@@ -165,4 +165,34 @@ class AuthProvider extends ChangeNotifier {
       AlertHelpers.showAlert(context, e.toString());
     }
   }
+
+  // --- Reset User Password Function ---
+
+  // password textfiled controller
+  final TextEditingController _resetEmail = TextEditingController();
+
+  TextEditingController get resetEmail => _resetEmail;
+
+  /// Start the login process
+  Future<void> SendPasswordResetEmail(BuildContext context) async {
+    try {
+      /// validate the input
+      if (_resetEmail.text.isNotEmpty) {
+        // start the loader
+        setLoading(true);
+        // start creating the user
+        await _authConroller.sendEmail(context, _resetEmail.text).then((value) {
+          // clear the controllers
+          _resetEmail.clear();
+
+          // stop the loader
+          setLoading(false);
+        });
+      }
+    } catch (e) {
+      Logger().w(e);
+      setLoading(false);
+      AlertHelpers.showAlert(context, e.toString());
+    }
+  }
 }
