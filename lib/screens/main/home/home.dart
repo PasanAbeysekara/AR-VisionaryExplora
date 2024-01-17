@@ -169,44 +169,82 @@ class ProductTile extends StatelessWidget {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(12)),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: CustomText(
-                          itemsInfo?.itemName ?? "default name",
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CustomText(
+                              itemsInfo?.itemName ?? "default name",
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomText(
+                        'LKR: ${itemsInfo?.itemPrice ?? "0"}',
+                        fontSize: 12,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomText(
+                        itemsInfo?.sellerName ?? "0",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      Row(
+                        children: [
+                          CustomText(
+                            itemsInfo?.status ?? "0",
+                            fontSize: 10,
+                            color: Color.fromARGB(255, 85, 168, 53),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(width: 26),
+                          DiscountTag(value: '15%'),
+                        ],
+                      ),
                     ],
-                  ),
-                  CustomText(
-                    'LKR: ${itemsInfo?.itemPrice ?? "0"}',
-                    fontSize: 12,
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  CustomText(
-                    itemsInfo?.sellerName ?? "0",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  CustomText(
-                    itemsInfo?.status ?? "0",
-                    fontSize: 10,
-                    color: Color.fromARGB(255, 85, 168, 53),
-                    fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class DiscountTag extends StatelessWidget {
+  final String value;
+
+  DiscountTag({required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.red, // Customize the color of the discount tag
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
+      child: Text(
+        '$value OFF',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
