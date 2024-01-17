@@ -64,7 +64,7 @@ class BottomRaw extends StatelessWidget {
           // Use the calculated total price, discount, and tax for the total amount
           CartAmmountRaw(
             name: "Total Price",
-            ammount: "LKR. ${(totalPrice - discount + tax).toString()}",
+            ammount: "LKR. ${cartProvider.calculateTotalPrice()}",
             isTotal: true,
           ),
           CustomButton(
