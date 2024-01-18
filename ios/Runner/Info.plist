@@ -2,10 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- for image picker package -->
+
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app require access for Photo Library Usage</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app is require to access the camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app is require to access the microphone</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -33,6 +38,7 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -1,7 +1,6 @@
 import 'dart:typed_data';
-
-import 'package:ar_visionary_explora/api_consumer.dart';
-import 'package:ar_visionary_explora/homeScreen.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/api_consumer.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/homeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
