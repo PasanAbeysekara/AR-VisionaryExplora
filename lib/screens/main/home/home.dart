@@ -28,40 +28,44 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(AppAssets.menuIcon),
-                InkWell(
-                  onTap: () {
-                    Helpers.navigateToPage(context, const Cart());
-                  },
-                  child: SvgPicture.asset(
-                    AppAssets.cartIcon,
+        child: Container(
+          margin:
+              const EdgeInsets.only(top: 20), // Adjust the top margin as needed
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(AppAssets.menuIcon),
+                  InkWell(
+                    onTap: () {
+                      Helpers.navigateToPage(context, const Cart());
+                    },
+                    child: SvgPicture.asset(
+                      AppAssets.cartIcon,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: CustomText(
-                "Furniture",
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 41,
-            ),
-            //PRODUCT GRID
-            ProductGrid(),
-          ],
+              const SizedBox(
+                height: 25,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: CustomText(
+                  "Furniture",
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              const SizedBox(
+                height: 21,
+              ),
+              // PRODUCT GRID
+              ProductGrid(),
+            ],
+          ),
         ),
       ),
     );
