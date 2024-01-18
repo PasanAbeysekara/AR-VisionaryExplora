@@ -25,11 +25,25 @@ class CartProvider extends ChangeNotifier {
     return productPrice;
   }
 
+  double getProductPrice() {
+    return calculateProductPrice();
+  }
+
+  double getDiscount() {
+    double discount_rate = 15 / 100; // Replace with your discount logic
+    return discount_rate * getProductPrice();
+  }
+
+  double getTax() {
+    double tax_rate = 5 / 100; // Replace with your tax logic
+    return tax_rate * getProductPrice();
+  }
+
   // Calculate the total price with discount and tax
   double calculateTotalPrice() {
     double productPrice = calculateProductPrice();
-    double discount = 10000; // Replace with your discount logic
-    double tax = 5000; // Replace with your tax logic
+    double discount = getDiscount(); // Replace with your discount logic
+    double tax = getTax(); // Replace with your tax logic
     return productPrice - discount + tax;
   }
 }

@@ -18,8 +18,8 @@ class BottomRaw extends StatelessWidget {
     // Calculate the total price dynamically
     double totalPrice = cartProvider.calculateTotalPrice();
     // Hypothetical discount and tax amounts
-    double discount = 10000;
-    double tax = 5000;
+    double discount = cartProvider.getDiscount();
+    double tax = cartProvider.getTax();
 
     return Container(
       height: 200,

@@ -28,40 +28,44 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(AppAssets.menuIcon),
-                InkWell(
-                  onTap: () {
-                    Helpers.navigateToPage(context, const Cart());
-                  },
-                  child: SvgPicture.asset(
-                    AppAssets.cartIcon,
+        child: Container(
+          margin:
+              const EdgeInsets.only(top: 20), // Adjust the top margin as needed
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(AppAssets.menuIcon),
+                  InkWell(
+                    onTap: () {
+                      Helpers.navigateToPage(context, const Cart());
+                    },
+                    child: SvgPicture.asset(
+                      AppAssets.cartIcon,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: CustomText(
-                "Furniture",
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 41,
-            ),
-            //PRODUCT GRID
-            ProductGrid(),
-          ],
+              const SizedBox(
+                height: 25,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: CustomText(
+                  "Furniture",
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              const SizedBox(
+                height: 21,
+              ),
+              // PRODUCT GRID
+              ProductGrid(),
+            ],
+          ),
         ),
       ),
     );
@@ -169,44 +173,82 @@ class ProductTile extends StatelessWidget {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(12)),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: CustomText(
-                          itemsInfo?.itemName ?? "default name",
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CustomText(
+                              itemsInfo?.itemName ?? "default name",
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomText(
+                        'LKR: ${itemsInfo?.itemPrice ?? "0"}',
+                        fontSize: 12,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomText(
+                        itemsInfo?.sellerName ?? "0",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      Row(
+                        children: [
+                          CustomText(
+                            itemsInfo?.status ?? "0",
+                            fontSize: 10,
+                            color: Color.fromARGB(255, 85, 168, 53),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(width: 26),
+                          DiscountTag(value: '15%'),
+                        ],
+                      ),
                     ],
-                  ),
-                  CustomText(
-                    'LKR: ${itemsInfo?.itemPrice ?? "0"}',
-                    fontSize: 12,
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  CustomText(
-                    itemsInfo?.sellerName ?? "0",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  CustomText(
-                    itemsInfo?.status ?? "0",
-                    fontSize: 10,
-                    color: Color.fromARGB(255, 85, 168, 53),
-                    fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class DiscountTag extends StatelessWidget {
+  final String value;
+
+  DiscountTag({required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.red, // Customize the color of the discount tag
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
+      child: Text(
+        '$value OFF',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
