@@ -1,2 +1,2 @@
-String apiKeyRemoveImageBackground = "YjhpoE7CfNzLeyprbo1zUZRq";
+String apiKeyRemoveImageBackground = "c5Sh6M3pDpPZYZYf6e397Kx7";
 String apiName = "RemovePhotoItemBackgroundApp";
