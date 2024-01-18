@@ -50,6 +50,7 @@ class _ProfileState extends State<Profile> {
                                   value.userModel?.img ?? AppAssets.profileUrl,
                                   width: 200,
                                   height: 200,
+                                  fit: BoxFit.cover,
                                 )
                           // : Image.file(
                           //     value.image,
