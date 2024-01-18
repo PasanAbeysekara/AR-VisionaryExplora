@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:ar_visionary_explora/controllers/file_upload_controller.dart';
+import 'package:ar_visionary_explora/models/user_model.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
 import 'package:ar_visionary_explora/utils/helpers/alert_helpers.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -105,7 +109,7 @@ class AuthConroller {
           .sendPasswordResetEmail(
         email: email,
       )
-          .then((Value) {
+          .then((value) {
         AlertHelpers.showAlert(context, "Email sent to your inbox",
             type: DialogType.success);
       });
@@ -113,6 +117,58 @@ class AuthConroller {
       AlertHelpers.showAlert(context, e.code);
     } catch (e) {
       AlertHelpers.showAlert(context, e.toString());
+    }
+  }
+
+  /// --- Fetch userData from cloud firestore ---
+  Future<UserModel?> fetchUserData(
+    BuildContext context,
+    String uid,
+  ) async {
+    try {
+      // Firebase Query find and fetch user data accourding to uid
+      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
+
+      if (documentSnapshot.exists) {
+        Logger().w(documentSnapshot.data());
+        // Mapping fetch data to user model
+        UserModel model =
+            UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+        return model;
+      } else {
+        Logger().e("No data found");
+        return null;
+      }
+    } catch (e) {
+      Logger().e(e);
+      return null;
+    }
+  }
+
+  final FileUploadController _fileUploadController = FileUploadController();
+
+  // upload pick image file to the firebase storage bucket and update the user profile
+  Future<String> uploadAndUpdateProfileImage(File file, String uid) async {
+    try {
+      // start uplaoding the file
+      final String downloadUrl = await _fileUploadController.uploadFile(
+        file,
+        "userImages",
+      );
+
+      // check if the file is uploaded
+      if (downloadUrl.isNotEmpty) {
+        await users.doc(uid).update({
+          "img": downloadUrl,
+        });
+        return downloadUrl;
+      } else {
+        Logger().w("download url is empty");
+        return "";
+      }
+    } catch (e) {
+      Logger().e(e);
+      return "";
     }
   }
 }
