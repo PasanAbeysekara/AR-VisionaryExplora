@@ -31,9 +31,11 @@ class _ItemUIDesignWidgetState extends State<ItemUIDesignWidget> {
       onTap: () {
         // send user to the item detail screen
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => ItemDetailsScreen(
-              clickedItemInfo: widget.itemsInfo,
-            )));
+            context,
+            MaterialPageRoute(
+                builder: (c) => ItemDetailsScreen(
+                      clickedItemInfo: widget.itemsInfo,
+                    )));
       },
       splashColor: Colors.purple,
       child: Padding(

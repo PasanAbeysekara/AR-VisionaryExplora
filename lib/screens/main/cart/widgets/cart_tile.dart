@@ -1,95 +1,160 @@
 import 'package:ar_visionary_explora/components/custom_text.dart';
+import 'package:ar_visionary_explora/screens/main/myhome/items.dart';
 import 'package:ar_visionary_explora/utils/constants/app_assets.dart';
-import 'package:ar_visionary_explora/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:ussd_phone_call_sms/ussd_phone_call_sms.dart';
 
 class CartTile extends StatelessWidget {
+  final Items item;
+  final Function(Items) onRemove;
+
   const CartTile({
-    super.key,
+    required this.item,
+    required this.onRemove,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      margin: const EdgeInsets.symmetric(horizontal: 30),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.ash.withOpacity(.3),
-            offset: const Offset(0, 2),
-            blurRadius: 10,
-          )
-        ],
-        borderRadius: BorderRadiusDirectional.circular(15),
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadiusDirectional.circular(15),
-            child: Image.network(
-              AppAssets.dummyImage,
-              width: 70,
-              height: 70,
-              fit: BoxFit.fill,
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomText(
-                "Sofa",
-                fontSize: 14,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(item.itemImage ?? ''),
+                ),
               ),
-              Row(
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    child: Icon(Icons.add),
+                  // Product Name
+                  Text(
+                    item.itemName ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(
-                    width: 15,
+                  const SizedBox(height: 2),
+                  // Product Price
+                  Text(
+                    'LKR ${item.itemPrice ?? "0"}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.red,
+                    ),
                   ),
-                  CustomText(
-                    "1",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(height: 2),
+                  // Product Description
+                  Text(
+                    item.sellerName ?? '',
+                    style: const TextStyle(fontSize: 10),
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    child: Icon(Icons.remove),
+                  const SizedBox(height: 2),
+                  // Product Description
+                  Text(
+                    item.status ?? '',
+                    style: const TextStyle(fontSize: 10, color: Colors.green),
                   ),
                 ],
               ),
-            ],
-          ),
-          Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.red,
+            ),
+            const SizedBox(width: 8),
+            // Phone and Message Icons
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: IconButton(
+                    icon: const Icon(Icons.phone),
+                    color: Colors.blue,
+                    onPressed: () => _showConfirmationDialog(
+                      context,
+                      'Make a Call',
+                      'Do you want to make a call to ${item.sellerName}?',
+                      () => FlutterPhoneDirectCaller.callNumber(
+                          item.sellerPhone ?? '1234567890'),
+                    ),
+                  ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: IconButton(
+                    icon: Icon(Icons.message),
+                    color: Colors.green,
+                    onPressed: () => _showConfirmationDialog(
+                      context,
+                      'Send Message',
+                      'Do you want to send a message to ${item.sellerName}?',
+                      () => launch('sms:${item.sellerPhone ?? '1234567890'}'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(width: 8),
+            // Remove Button
+            Container(
+              margin: EdgeInsets.only(top: 15),
+              child: IconButton(
+                icon: Icon(Icons.remove_circle),
+                color: Colors.red,
+                onPressed: () => onRemove(item),
               ),
-              const CustomText(
-                "LKR. 120,000",
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              )
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Future<void> _showConfirmationDialog(
+    BuildContext context,
+    String title,
+    String content,
+    VoidCallback onConfirm,
+  ) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                onConfirm();
+                Navigator.of(context).pop();
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
